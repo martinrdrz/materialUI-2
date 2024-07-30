@@ -6,11 +6,25 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css';
-import { CssBaseline } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+
+const theme = createTheme({
+    palette: {
+        mode: 'light',
+        primary: {
+            main: '#128e23',
+        },
+        secondary: {
+            main: '#cb7816',
+        },
+    },
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <CssBaseline />
-        <App />
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <App />
+        </ThemeProvider>
     </React.StrictMode>
 );
