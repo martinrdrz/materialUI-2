@@ -1,43 +1,21 @@
 import { Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
+import { NavLink } from 'react-router-dom';
 
-export const NavListDrawer = () => {
+export const NavListDrawer = ({ navArrayLinks, setOpen }) => {
     return (
         <Box sx={{ width: 250 }}>
-            <nav aria-label="main mailbox folders">
-                <List>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Inbox" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <DraftsIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Draft" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-            </nav>
-            <Divider />
             <nav aria-label="secondary trash spam">
                 <List>
-                    <ListItem disablePadding>
-                        <ListItemButton component="a" href="#trash">
-                            <ListItemText primary="Trash" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton component="a" href="#spam">
-                            <ListItemText primary="Spam" />
-                        </ListItemButton>
-                    </ListItem>
+                    {navArrayLinks.map((item) => (
+                        <ListItem disablePadding key={item.title}>
+                            <ListItemButton component={NavLink} to={item.path} onClick={() => setOpen(false)}>
+                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                <ListItemText primary={item.title} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
                 </List>
             </nav>
         </Box>
