@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Collapse, Snackbar } from '@mui/material';
+import { Alert, Box, Button, Collapse, Snackbar, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
@@ -7,8 +7,37 @@ export const Home = () => {
     const [openMensaje, setOpenMensaje] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
 
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState({
+        error: false,
+        message: '',
+    });
+
+    const emailValidation = (email) => {
+        // expresion regular para validar email
+        const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return regex.test(email);
+    };
+
     const handleClick = () => {
         enqueueSnackbar('Notificaciones temporales', { variant: 'success' });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (!emailValidation(email)) {
+            setError({
+                error: true,
+                message: 'El email no es valido',
+            });
+            return;
+        }
+        handleClick();
+        console.log(email);
+        setError({
+            error: false,
+            message: '',
+        });
     };
 
     return (
@@ -44,6 +73,23 @@ export const Home = () => {
                     onClose={() => setOpenMensaje(false)}
                     message="Mensaje temporal"
                 />
+            </Box>
+            <h1>Formulario</h1>
+            <Box component="form" onSubmit={handleSubmit}>
+                <TextField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    variant="outlined"
+                    fullwidth
+                    error={error.error}
+                    helperText={error.message}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                />
+                <Button type="submit" variant="outlined" sx={{ ml: 2, mt: 1 }}>
+                    Registrar
+                </Button>
             </Box>
         </>
     );

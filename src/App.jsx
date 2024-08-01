@@ -11,6 +11,8 @@ import { Register } from './pages/Register';
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Dashboard } from './pages/Dashboard';
 
 const navArrayLinks = [
     {
@@ -28,6 +30,11 @@ const navArrayLinks = [
         path: '/register',
         icon: <MenuIcon />,
     },
+    {
+        title: 'Dashboard',
+        path: '/dashboard',
+        icon: <DashboardIcon />,
+    },
 ];
 
 export const App = () => {
@@ -40,6 +47,7 @@ export const App = () => {
                     <Route path="/home" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/*" element={<Navigate to="/" />} />
                 </Routes>
             </Container>
